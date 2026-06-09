@@ -21,10 +21,10 @@ jobs:
       DUNE_UPLOAD_TABLE: ${{ vars.DUNE_UPLOAD_TABLE || 'capacitr_hydrex_pool_snapshots' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '24'
 
