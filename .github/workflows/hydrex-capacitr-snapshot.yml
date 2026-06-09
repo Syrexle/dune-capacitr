@@ -1,0 +1,29 @@
+name: Hydrex CAPACITR snapshot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DUNE_API_KEY: ${{ secrets.DUNE_API_KEY }}
+      DUNE_UPLOAD_NAMESPACE: ${{ vars.DUNE_UPLOAD_NAMESPACE || 'tariq' }}
+      DUNE_UPLOAD_TABLE: ${{ vars.DUNE_UPLOAD_TABLE || 'capacitr_hydrex_pool_snapshots' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Upload Hydrex snapshot to Dune
+        run: node scripts/upload-hydrex-capacitr-snapshot.mjs
